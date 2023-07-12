@@ -1,0 +1,57 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+
+public class Equation {
+    public static String getSolution(String str) throws IOException {
+        // Введите свое решение ниже
+        Path pathtext = Paths.get(str);
+        System.out.println(pathtext);
+        byte[] bytes = Files.readAllBytes(pathtext);
+        String contents = new String(bytes);
+        String[] temp = contents.replace(" ", "").split("");
+        String[] temp2 = new String[temp.length];
+        System.arraycopy(temp, 0, temp2, 0, temp.length);
+
+        for (int m = 0; m < 10; m++) {
+           System.arraycopy(temp, 0, temp2, 0, temp.length);
+            for (int k = 0; k < temp.length; k++) {
+                if (temp2[k].equals("?")) {
+                    temp2[k] = Integer.toString(m);
+                    break;
+                }
+            }
+            for (int n = 0; n < 10; n++) {
+                for (int p = 0; p < temp.length; p++) {
+                    if (temp2[p].equals("?")) {
+                        temp2[p] = Integer.toString(n);
+
+                    }
+                }
+
+                arrTemp(temp2);
+                //System.arraycopy(temp, 0, temp2, 0, temp.length);
+            }
+
+        }
+
+        return contents;
+    }
+
+
+    public static void arrTemp(String[] str){
+        String [] temp1 = new String[3];
+        Arrays.fill(temp1, "");
+        int i = 0;
+        for (int j = 0; j < str.length; j++) {
+            if (str[j].equals("+") || str[j].equals("=")) i++;
+            else temp1[i] += str[j];
+        }
+        for (String s : temp1)
+            System.out.println(s);
+
+    }
+
+}
